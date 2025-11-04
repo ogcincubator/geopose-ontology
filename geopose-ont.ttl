@@ -5,24 +5,6 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-geopose:3_Vector a owl:Class,
-        skos:Concept ;
-    skos:broader geopose:classes ;
-    skos:inScheme <https://w3id.org/ogc/geopose> ;
-    skos:prefLabel "3-Vector"@en .
-
-geopose:3x3_Matrix a owl:Class,
-        skos:Concept ;
-    skos:broader geopose:classes ;
-    skos:inScheme <https://w3id.org/ogc/geopose> ;
-    skos:prefLabel "3x3-Matrix"@en .
-
-geopose:AtAndUpVectors a owl:Class,
-        skos:Concept ;
-    skos:broader geopose:classes ;
-    skos:inScheme <https://w3id.org/ogc/geopose> ;
-    skos:prefLabel "AtAndUpVectors"@en .
-
 geopose:Date_Time a owl:Class,
         skos:Concept ;
     rdfs:subClassOf geopose:Temporal_Position ;
@@ -77,22 +59,6 @@ geopose:Interpolated a owl:ObjectProperty,
     skos:prefLabel "Interpolated"@en ;
     schema:domainIncludes geopose:Transition_Model .
 
-geopose:Look_AtSpecification a owl:Class,
-        skos:Concept ;
-    rdfs:subClassOf geopose:ExplicitFrameSpec ;
-    skos:broader geopose:ExplicitFrameSpec ;
-    skos:definition "Defines a frame orientation by specifying a ‘look-at’ target direction rather than explicit rotation parameters."@en ;
-    skos:inScheme <https://w3id.org/ogc/geopose> ;
-    skos:prefLabel "Look-AtSpecification"@en .
-
-geopose:MatrixSpec a owl:Class,
-        skos:Concept ;
-    rdfs:subClassOf geopose:ExplicitFrameSpec ;
-    skos:broader geopose:ExplicitFrameSpec ;
-    skos:definition "A frame specification using a 4×4 homogeneous transformation matrix to define a frame-to-frame transform."@en ;
-    skos:inScheme <https://w3id.org/ogc/geopose> ;
-    skos:prefLabel "MatrixSpec"@en .
-
 geopose:None a owl:ObjectProperty,
         skos:Concept ;
     skos:broader geopose:properties ;
@@ -122,6 +88,14 @@ geopose:angles a owl:ObjectProperty,
     skos:prefLabel "angles"@en ;
     schema:domainIncludes geopose:Basic_YPR ;
     schema:rangeIncludes geopose:YawPitchRollAngles .
+
+geopose:atVector a owl:ObjectProperty,
+        skos:Concept ;
+    skos:broader geopose:properties ;
+    skos:inScheme <https://w3id.org/ogc/geopose> ;
+    skos:prefLabel "atVector"@en ;
+    schema:domainIncludes geopose:AtAndUpVectors ;
+    schema:rangeIncludes geopose:3_Vector .
 
 geopose:authority a owl:DatatypeProperty,
         skos:Concept ;
@@ -229,6 +203,14 @@ geopose:framesAndTimes a owl:ObjectProperty,
         geopose:Stream ;
     schema:rangeIncludes geopose:FrameAndTimeElement .
 
+geopose:h a owl:DatatypeProperty,
+        skos:Concept ;
+    rdfs:range xsd:double ;
+    skos:broader geopose:properties ;
+    skos:inScheme <https://w3id.org/ogc/geopose> ;
+    skos:prefLabel "h"@en ;
+    schema:domainIncludes geopose:TangentPointPosition .
+
 geopose:has a owl:ObjectProperty,
         skos:Concept ;
     skos:broader geopose:properties ;
@@ -314,6 +296,22 @@ geopose:interposeDuration a owl:ObjectProperty,
     schema:domainIncludes geopose:Regular_Series ;
     schema:rangeIncludes geopose:GeoPose_Duration .
 
+geopose:latitude a owl:DatatypeProperty,
+        skos:Concept ;
+    rdfs:range xsd:double ;
+    skos:broader geopose:properties ;
+    skos:inScheme <https://w3id.org/ogc/geopose> ;
+    skos:prefLabel "latitude"@en ;
+    schema:domainIncludes geopose:TangentPointPosition .
+
+geopose:longitude a owl:DatatypeProperty,
+        skos:Concept ;
+    rdfs:range xsd:double ;
+    skos:broader geopose:properties ;
+    skos:inScheme <https://w3id.org/ogc/geopose> ;
+    skos:prefLabel "longitude"@en ;
+    schema:domainIncludes geopose:TangentPointPosition .
+
 geopose:numericDuration a owl:DatatypeProperty,
         skos:Concept ;
     rdfs:range xsd:long ;
@@ -364,12 +362,26 @@ geopose:outerFrameIndex a owl:DatatypeProperty,
     schema:domainIncludes geopose:FrameTransformIndexPair .
 
 geopose:parameters a owl:DatatypeProperty,
+        owl:ObjectProperty,
         skos:Concept ;
     rdfs:range xsd:string ;
     skos:broader geopose:properties ;
     skos:inScheme <https://w3id.org/ogc/geopose> ;
     skos:prefLabel "parameters"@en ;
-    schema:domainIncludes geopose:TransitionModel .
+    schema:domainIncludes geopose:GenericFrameSpec,
+        geopose:Look_AtSpecification,
+        geopose:MatrixSpec,
+        geopose:TransitionModel ;
+    schema:rangeIncludes geopose:3x3_Matrix,
+        geopose:AtAndUpVectors .
+
+geopose:pitch a owl:DatatypeProperty,
+        skos:Concept ;
+    rdfs:range xsd:double ;
+    skos:broader geopose:properties ;
+    skos:inScheme <https://w3id.org/ogc/geopose> ;
+    skos:prefLabel "pitch"@en ;
+    schema:domainIncludes geopose:YawPitchRollAngles .
 
 geopose:poseCount a owl:DatatypeProperty,
         skos:Concept ;
@@ -409,6 +421,14 @@ geopose:quaternion a owl:ObjectProperty,
         geopose:Basic_Quaternion ;
     schema:rangeIncludes geopose:Unit_Quaternion .
 
+geopose:roll a owl:DatatypeProperty,
+        skos:Concept ;
+    rdfs:range xsd:double ;
+    skos:broader geopose:properties ;
+    skos:inScheme <https://w3id.org/ogc/geopose> ;
+    skos:prefLabel "roll"@en ;
+    schema:domainIncludes geopose:YawPitchRollAngles .
+
 geopose:sequenceInterval a owl:ObjectProperty,
         skos:Concept ;
     skos:broader geopose:properties ;
@@ -433,6 +453,14 @@ geopose:stopInstant a owl:ObjectProperty,
     skos:prefLabel "stopInstant"@en ;
     schema:domainIncludes geopose:SeriesHeader ;
     schema:rangeIncludes geopose:GeoPose_Instant .
+
+geopose:streamElement a owl:ObjectProperty,
+        skos:Concept ;
+    skos:broader geopose:properties ;
+    skos:inScheme <https://w3id.org/ogc/geopose> ;
+    skos:prefLabel "streamElement"@en ;
+    schema:domainIncludes geopose:StreamElement ;
+    schema:rangeIncludes geopose:FrameAndTimeElement .
 
 geopose:streamElements a owl:ObjectProperty,
         skos:Concept ;
@@ -469,6 +497,14 @@ geopose:transitionModel a owl:ObjectProperty,
         geopose:StreamHeader ;
     schema:rangeIncludes geopose:TransitionModel .
 
+geopose:upVector a owl:ObjectProperty,
+        skos:Concept ;
+    skos:broader geopose:properties ;
+    skos:inScheme <https://w3id.org/ogc/geopose> ;
+    skos:prefLabel "upVector"@en ;
+    schema:domainIncludes geopose:AtAndUpVectors ;
+    schema:rangeIncludes geopose:3_Vector .
+
 geopose:validTime a owl:ObjectProperty,
         skos:Concept ;
     skos:broader geopose:properties ;
@@ -500,6 +536,102 @@ geopose:x a owl:DatatypeProperty,
     skos:prefLabel "x"@en ;
     schema:domainIncludes geopose:Unit_Quaternion .
 
+geopose:x0 a owl:DatatypeProperty,
+        skos:Concept ;
+    rdfs:range xsd:double ;
+    skos:broader geopose:properties ;
+    skos:inScheme <https://w3id.org/ogc/geopose> ;
+    skos:prefLabel "x0"@en ;
+    schema:domainIncludes geopose:3_Vector .
+
+geopose:x00 a owl:DatatypeProperty,
+        skos:Concept ;
+    rdfs:range xsd:double ;
+    skos:broader geopose:properties ;
+    skos:inScheme <https://w3id.org/ogc/geopose> ;
+    skos:prefLabel "x00"@en ;
+    schema:domainIncludes geopose:3x3_Matrix .
+
+geopose:x01 a owl:DatatypeProperty,
+        skos:Concept ;
+    rdfs:range xsd:double ;
+    skos:broader geopose:properties ;
+    skos:inScheme <https://w3id.org/ogc/geopose> ;
+    skos:prefLabel "x01"@en ;
+    schema:domainIncludes geopose:3x3_Matrix .
+
+geopose:x02 a owl:DatatypeProperty,
+        skos:Concept ;
+    rdfs:range xsd:double ;
+    skos:broader geopose:properties ;
+    skos:inScheme <https://w3id.org/ogc/geopose> ;
+    skos:prefLabel "x02"@en ;
+    schema:domainIncludes geopose:3x3_Matrix .
+
+geopose:x1 a owl:DatatypeProperty,
+        skos:Concept ;
+    rdfs:range xsd:double ;
+    skos:broader geopose:properties ;
+    skos:inScheme <https://w3id.org/ogc/geopose> ;
+    skos:prefLabel "x1"@en ;
+    schema:domainIncludes geopose:3_Vector .
+
+geopose:x10 a owl:DatatypeProperty,
+        skos:Concept ;
+    rdfs:range xsd:double ;
+    skos:broader geopose:properties ;
+    skos:inScheme <https://w3id.org/ogc/geopose> ;
+    skos:prefLabel "x10"@en ;
+    schema:domainIncludes geopose:3x3_Matrix .
+
+geopose:x11 a owl:DatatypeProperty,
+        skos:Concept ;
+    rdfs:range xsd:double ;
+    skos:broader geopose:properties ;
+    skos:inScheme <https://w3id.org/ogc/geopose> ;
+    skos:prefLabel "x11"@en ;
+    schema:domainIncludes geopose:3x3_Matrix .
+
+geopose:x12 a owl:DatatypeProperty,
+        skos:Concept ;
+    rdfs:range xsd:double ;
+    skos:broader geopose:properties ;
+    skos:inScheme <https://w3id.org/ogc/geopose> ;
+    skos:prefLabel "x12"@en ;
+    schema:domainIncludes geopose:3x3_Matrix .
+
+geopose:x2 a owl:DatatypeProperty,
+        skos:Concept ;
+    rdfs:range xsd:double ;
+    skos:broader geopose:properties ;
+    skos:inScheme <https://w3id.org/ogc/geopose> ;
+    skos:prefLabel "x2"@en ;
+    schema:domainIncludes geopose:3_Vector .
+
+geopose:x20 a owl:DatatypeProperty,
+        skos:Concept ;
+    rdfs:range xsd:double ;
+    skos:broader geopose:properties ;
+    skos:inScheme <https://w3id.org/ogc/geopose> ;
+    skos:prefLabel "x20"@en ;
+    schema:domainIncludes geopose:3x3_Matrix .
+
+geopose:x21 a owl:DatatypeProperty,
+        skos:Concept ;
+    rdfs:range xsd:double ;
+    skos:broader geopose:properties ;
+    skos:inScheme <https://w3id.org/ogc/geopose> ;
+    skos:prefLabel "x21"@en ;
+    schema:domainIncludes geopose:3x3_Matrix .
+
+geopose:x22 a owl:DatatypeProperty,
+        skos:Concept ;
+    rdfs:range xsd:double ;
+    skos:broader geopose:properties ;
+    skos:inScheme <https://w3id.org/ogc/geopose> ;
+    skos:prefLabel "x22"@en ;
+    schema:domainIncludes geopose:3x3_Matrix .
+
 geopose:y a owl:DatatypeProperty,
         skos:Concept ;
     rdfs:range xsd:double ;
@@ -507,6 +639,14 @@ geopose:y a owl:DatatypeProperty,
     skos:inScheme <https://w3id.org/ogc/geopose> ;
     skos:prefLabel "y"@en ;
     schema:domainIncludes geopose:Unit_Quaternion .
+
+geopose:yaw a owl:DatatypeProperty,
+        skos:Concept ;
+    rdfs:range xsd:double ;
+    skos:broader geopose:properties ;
+    skos:inScheme <https://w3id.org/ogc/geopose> ;
+    skos:prefLabel "yaw"@en ;
+    schema:domainIncludes geopose:YawPitchRollAngles .
 
 geopose:z a owl:DatatypeProperty,
         skos:Concept ;
@@ -531,6 +671,22 @@ geopose:LTP_NEDSpec a owl:Class,
     skos:inScheme <https://w3id.org/ogc/geopose> ;
     skos:prefLabel "LTP_NEDSpec"@en .
 
+geopose:Look_AtSpecification a owl:Class,
+        skos:Concept ;
+    rdfs:subClassOf geopose:ExplicitFrameSpec ;
+    skos:broader geopose:ExplicitFrameSpec ;
+    skos:definition "Defines a frame orientation by specifying a ‘look-at’ target direction rather than explicit rotation parameters."@en ;
+    skos:inScheme <https://w3id.org/ogc/geopose> ;
+    skos:prefLabel "Look-AtSpecification"@en .
+
+geopose:MatrixSpec a owl:Class,
+        skos:Concept ;
+    rdfs:subClassOf geopose:ExplicitFrameSpec ;
+    skos:broader geopose:ExplicitFrameSpec ;
+    skos:definition "A frame specification using a 4×4 homogeneous transformation matrix to define a frame-to-frame transform."@en ;
+    skos:inScheme <https://w3id.org/ogc/geopose> ;
+    skos:prefLabel "MatrixSpec"@en .
+
 geopose:Quaternion_OrientedGenericSpec a owl:Class,
         skos:Concept ;
     rdfs:subClassOf geopose:GenericFrameSpec ;
@@ -546,19 +702,6 @@ geopose:Quaternion_OrientedLTP_ENUSpec a owl:Class,
     skos:definition "An LTP-ENU frame spec whose orientation is defined via quaternion."@en ;
     skos:inScheme <https://w3id.org/ogc/geopose> ;
     skos:prefLabel "Quaternion-OrientedLTP-ENUSpec"@en .
-
-geopose:StreamElement a owl:Class,
-        skos:Concept ;
-    skos:broader geopose:classes ;
-    skos:definition "An element in a stream, combining a frame (frame spec) and a valid time."@en ;
-    skos:inScheme <https://w3id.org/ogc/geopose> ;
-    skos:prefLabel "StreamElement"@en .
-
-geopose:TangentPointPosition a owl:Class,
-        skos:Concept ;
-    skos:broader geopose:classes ;
-    skos:inScheme <https://w3id.org/ogc/geopose> ;
-    skos:prefLabel "TangentPointPosition"@en .
 
 geopose:YPR_OrientedLTP_ENUSpec a owl:Class,
         skos:Concept ;
@@ -589,14 +732,12 @@ geopose:FrameAndTime a owl:Class,
     skos:inScheme <https://w3id.org/ogc/geopose> ;
     skos:prefLabel "FrameAndTime"@en .
 
-geopose:GenericFrameSpec a owl:Class,
+geopose:StreamElement a owl:Class,
         skos:Concept ;
-    rdfs:subClassOf geopose:ExplicitFrameSpec ;
-    skos:broader geopose:ExplicitFrameSpec ;
-    skos:definition "A generic frame specification class that can express arbitrary frame conventions, parameterized externally."@en ;
+    skos:broader geopose:classes ;
+    skos:definition "An element in a stream, combining a frame (frame spec) and a valid time."@en ;
     skos:inScheme <https://w3id.org/ogc/geopose> ;
-    skos:narrower geopose:Quaternion_OrientedGenericSpec ;
-    skos:prefLabel "GenericFrameSpec"@en .
+    skos:prefLabel "StreamElement"@en .
 
 geopose:Transition_Model a owl:Class,
         skos:Concept ;
@@ -611,18 +752,18 @@ geopose:UNIXTimeMilliseconds a owl:Class,
     skos:inScheme <https://w3id.org/ogc/geopose> ;
     skos:prefLabel "UNIXTimeMilliseconds"@en .
 
-geopose:YawPitchRollAngles a owl:Class,
-        skos:Concept ;
-    skos:broader geopose:classes ;
-    skos:inScheme <https://w3id.org/ogc/geopose> ;
-    skos:prefLabel "YawPitchRollAngles"@en .
-
 geopose:Advanced a owl:Class,
         skos:Concept ;
     skos:broader geopose:classes ;
     skos:definition "A GeoPose target allowing full configuration of the inner frame via a quaternion-based orientation; more flexible than the basic targets."@en ;
     skos:inScheme <https://w3id.org/ogc/geopose> ;
     skos:prefLabel "Advanced"@en .
+
+geopose:AtAndUpVectors a owl:Class,
+        skos:Concept ;
+    skos:broader geopose:classes ;
+    skos:inScheme <https://w3id.org/ogc/geopose> ;
+    skos:prefLabel "AtAndUpVectors"@en .
 
 geopose:Chain a owl:Class,
         skos:Concept ;
@@ -637,6 +778,15 @@ geopose:FrameTransformIndexPair a owl:Class,
     skos:definition "A pairing of a FrameTransform with an integer index, used in Graph structures."@en ;
     skos:inScheme <https://w3id.org/ogc/geopose> ;
     skos:prefLabel "FrameTransformIndexPair"@en .
+
+geopose:GenericFrameSpec a owl:Class,
+        skos:Concept ;
+    rdfs:subClassOf geopose:ExplicitFrameSpec ;
+    skos:broader geopose:ExplicitFrameSpec ;
+    skos:definition "A generic frame specification class that can express arbitrary frame conventions, parameterized externally."@en ;
+    skos:inScheme <https://w3id.org/ogc/geopose> ;
+    skos:narrower geopose:Quaternion_OrientedGenericSpec ;
+    skos:prefLabel "GenericFrameSpec"@en .
 
 geopose:Graph a owl:Class,
         skos:Concept ;
@@ -709,13 +859,6 @@ geopose:AbstractFrameSpec a owl:Class,
         geopose:ExplicitFrameSpec ;
     skos:prefLabel "AbstractFrameSpec"@en .
 
-geopose:FrameAndTimeElement a owl:Class,
-        skos:Concept ;
-    skos:broader geopose:classes ;
-    skos:definition "An element used in sequences/streams combining an explicit frame spec with a GeoPose instant."@en ;
-    skos:inScheme <https://w3id.org/ogc/geopose> ;
-    skos:prefLabel "FrameAndTimeElement"@en .
-
 geopose:GeoPose_Duration a owl:Class,
         skos:Concept ;
     skos:broader geopose:classes ;
@@ -731,12 +874,31 @@ geopose:Pose a owl:Class,
     skos:narrower geopose:GeoPose ;
     skos:prefLabel "Pose"@en .
 
+geopose:TangentPointPosition a owl:Class,
+        skos:Concept ;
+    skos:broader geopose:classes ;
+    skos:inScheme <https://w3id.org/ogc/geopose> ;
+    skos:prefLabel "TangentPointPosition"@en .
+
 geopose:TransitionModel a owl:Class,
         skos:Concept ;
     skos:broader geopose:classes ;
     skos:definition "An enumeration defining how to interpolate between poses (e.g. 'interpolate')."@en ;
     skos:inScheme <https://w3id.org/ogc/geopose> ;
     skos:prefLabel "TransitionModel"@en .
+
+geopose:3_Vector a owl:Class,
+        skos:Concept ;
+    skos:broader geopose:classes ;
+    skos:inScheme <https://w3id.org/ogc/geopose> ;
+    skos:prefLabel "3-Vector"@en .
+
+geopose:FrameAndTimeElement a owl:Class,
+        skos:Concept ;
+    skos:broader geopose:classes ;
+    skos:definition "An element used in sequences/streams combining an explicit frame spec with a GeoPose instant."@en ;
+    skos:inScheme <https://w3id.org/ogc/geopose> ;
+    skos:prefLabel "FrameAndTimeElement"@en .
 
 geopose:GeoPose_Instant a owl:Class,
         skos:Concept ;
@@ -790,6 +952,12 @@ geopose:Time_Position a owl:Class,
     skos:inScheme <https://w3id.org/ogc/geopose> ;
     skos:prefLabel "Time_Position"@en .
 
+geopose:YawPitchRollAngles a owl:Class,
+        skos:Concept ;
+    skos:broader geopose:classes ;
+    skos:inScheme <https://w3id.org/ogc/geopose> ;
+    skos:prefLabel "YawPitchRollAngles"@en .
+
 geopose:Sequence a owl:Class,
         skos:Concept ;
     skos:broader geopose:classes ;
@@ -838,6 +1006,12 @@ geopose:Series a owl:Class,
     skos:narrower geopose:Irregular_Series,
         geopose:Regular_Series ;
     skos:prefLabel "Series"@en .
+
+geopose:3x3_Matrix a owl:Class,
+        skos:Concept ;
+    skos:broader geopose:classes ;
+    skos:inScheme <https://w3id.org/ogc/geopose> ;
+    skos:prefLabel "3x3-Matrix"@en .
 
 geopose:ExplicitFrameSpec a owl:Class,
         skos:Concept ;
@@ -895,6 +1069,7 @@ geopose:properties a skos:Concept ;
         geopose:Interpolated,
         geopose:None,
         geopose:angles,
+        geopose:atVector,
         geopose:authority,
         geopose:beginning,
         geopose:beginningAndEnd,
@@ -908,6 +1083,7 @@ geopose:properties a skos:Concept ;
         geopose:frameList,
         geopose:frameSpecification,
         geopose:framesAndTimes,
+        geopose:h,
         geopose:has,
         geopose:header,
         geopose:id,
@@ -918,27 +1094,46 @@ geopose:properties a skos:Concept ;
         geopose:integrityCheck,
         geopose:interPoseDuration,
         geopose:interposeDuration,
+        geopose:latitude,
+        geopose:longitude,
         geopose:numericDuration,
         geopose:numericPosition,
         geopose:orientation,
         geopose:outerFrame,
         geopose:outerFrameIndex,
         geopose:parameters,
+        geopose:pitch,
         geopose:poseCount,
         geopose:poseTransform,
         geopose:position,
         geopose:quaternion,
+        geopose:roll,
         geopose:sequenceInterval,
         geopose:startInstant,
         geopose:stopInstant,
+        geopose:streamElement,
         geopose:streamElements,
         geopose:trailer,
         geopose:transformList,
         geopose:transitionModel,
+        geopose:upVector,
         geopose:validTime,
         geopose:w,
         geopose:x,
+        geopose:x0,
+        geopose:x00,
+        geopose:x01,
+        geopose:x02,
+        geopose:x1,
+        geopose:x10,
+        geopose:x11,
+        geopose:x12,
+        geopose:x2,
+        geopose:x20,
+        geopose:x21,
+        geopose:x22,
         geopose:y,
+        geopose:yaw,
         geopose:z ;
     skos:prefLabel "GeoPose 1.0 properties" ;
     skos:topConceptOf <https://w3id.org/ogc/geopose> .
@@ -947,5 +1142,3 @@ geopose:properties a skos:Concept ;
     skos:hasTopConcept geopose:classes,
         geopose:properties ;
     skos:prefLabel "GeoPose 1.0 Ontology" .
-
-
